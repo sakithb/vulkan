@@ -1,24 +1,24 @@
-.PHONY: all run clean
+.aHONY: all run clean
 
 all: build/vulkan
 
 build/vulkan: main.odin | build
 	odin build . -out:build/vulkan -debug
 
-assets/shader.frag.spv: assets/shader.frag | assets
-	glslc assets/shader.frag -o assets/shader.frag.spv
+shaders/shader.frag.spv: shaders/shader.frag | shaders
+	glslc shaders/shader.frag -o shaders/shader.frag.spv
 
-assets/shader.vert.spv: assets/shader.vert | assets
-	glslc assets/shader.vert -o assets/shader.vert.spv
+shaders/shader.vert.spv: shaders/shader.vert | shaders
+	glslc shaders/shader.vert -o shaders/shader.vert.spv
 
 build:
 	mkdir -p build
 
-assets:
-	mkdir -p assets
+shaders:
+	mkdir -p shaders
 
-run: build/vulkan assets/shader.frag.spv assets/shader.vert.spv
+run: build/vulkan shaders/shader.frag.spv shaders/shader.vert.spv
 	./build/vulkan
 
 clean:
-	rm -rf build assets/shader.frag.spv assets/shader.vert.spv
+	rm -rf build shaders/shader.frag.spv shaders/shader.vert.spv
